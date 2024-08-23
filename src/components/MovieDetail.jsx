@@ -1,27 +1,37 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import movieDetailData from '../assets/data/movieDetailData.json'
 import styled from 'styled-components'
+import { useContext } from 'react'
+import { movieDetailContext } from '../context/MovieDetailContext'
 
 export const MovieDetail = () => {
+  const movie = useContext(movieDetailContext)
+  // console.log("movie", movie)
   const navigate = useNavigate()
+
+  if(!movie) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
-      <Container onClick={() => navigate('/')}>
+      <Container key={movie.movieId} onClick={() => navigate('/')}>
+        <Poster src={movie.movieBackSrc} />
         <Div onClick={(e) => e.stopPropagation()}>
-          <Img src={`https://image.tmdb.org/t/p/w500${movieDetailData.poster_path}`} />
+          <Img src={movie.movieSrc} />
           <DetailDiv>
-            <H1>{movieDetailData.title}</H1>
-            <P>평점: {movieDetailData.vote_average}</P>
+            <H1>{movie.movieTitle}</H1>
+            <P>평점: {movie.movieAverage}</P>
             <GenreDiv>
               <H3>장르:</H3>
-              {movieDetailData.genres.map((el) => (
-                <Li>{el.name}</Li>
-              ))}
+              <Ul>
+                {movie.movieGenres.map(el => 
+                  <Li key={el.id}>{el.name}</Li>
+                )}
+              </Ul>
             </GenreDiv>
             <hr />
             <H3>줄거리:</H3>
-            <p>{movieDetailData.overview}</p>
+            <P>{movie.movieOverview}</P>
           </DetailDiv>
         </Div>
       </Container>
@@ -32,13 +42,19 @@ export const MovieDetail = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #ecececee;
+  /* background-color: #ecececee; */
   position: fixed;
   top: 0px;
   left: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const Poster = styled.img`
+  width: 100%;
+  height: 100%;
+  position: fixed;
 `
 
 const Div = styled.div`
@@ -48,6 +64,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  z-index: 2;
 `
 
 const Img = styled.img`
@@ -57,25 +74,32 @@ const Img = styled.img`
 `
 const DetailDiv = styled.div`
   width: 710px;
-  margin: 10px 20px;
+  margin: 20px 20px;
 `
 
 const H1 = styled.h1`
   font-size: 25px;
-  margin-bottom: -5px;
+  margin-bottom: 15px;
 `
 
 const P = styled.p`
   margin-bottom: 30px;
+  line-height: 25px;
 `
 
 const GenreDiv = styled.div`
-  margin-bottom: 35px;
+  margin: 35px 0;
 `
 
 const H3 = styled.h3`
   font-size: 17px;
-  margin-top: 30px;
+  margin: 30px 0 15px;
+`
+
+const Ul = styled.ul`
+  height: 20px;
+  margin-top: 23px;
+  padding: 0;
 `
 
 const Li = styled.li`

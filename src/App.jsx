@@ -1,34 +1,42 @@
 import './App.css'
-import styled from 'styled-components'
-import movieListData from './assets/data/movieListData.json'
 import { MovieCard } from './components/MovieCard'
-import { Routes, Route } from 'react-router-dom'
-import { MovieDetail } from './components/MovieDetail'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { movieListDataContext } from './context/movieListDataContext';
+import { NavBar } from './components/NavBar';
+// const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
-  const [ListData, setListData] = useState(movieListData)
-  console.log(ListData)
-  console.log(ListData.results)
-
-  const movies = ListData.results.map((movie) => ({
-    movieId: movie.id,
-    movieSrc: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-    movieTitle: movie.title,
-    movieAverage: movie.vote_average,
-  }))
-  console.log(movies)
+  const {movies} = useContext(movieListDataContext)
+  // console.log("movies", movies)
 
   return (
     <>
+      <NavBar />
       <MovieCard movies={movies} />
-
-      <Routes>
-        <Route path='/details' element={<MovieDetail />} />
-        {/* <Route path='/details/:movieId' element={<MovieDetail />} /> */}
-      </Routes>
     </>
   )
 }
 
 export default App
+
+
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     const response = await axios.get(`${API_URL}?api_key=${API_KEY}`)
+//     console.log("response", response)
+
+    
+//   //   const response = fetch("API_URL")
+//   //   .then(res => res.json())
+//   //   .then(data => {
+//   //     console.log(data)
+//   //   })
+//   //   .catch(err => {
+//   //     console.log(err)
+//   //   })
+//   //   console.log(response)
+//   }
+
+//   fetchData()
+// }, [])
