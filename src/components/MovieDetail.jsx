@@ -29,7 +29,6 @@ export const MovieDetail = () => {
                 )}
               </Ul>
             </GenreDiv>
-            <hr />
             <H3>줄거리:</H3>
             <P>{movie.movieOverview}</P>
           </DetailDiv>
@@ -42,7 +41,6 @@ export const MovieDetail = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  /* background-color: #ecececee; */
   position: fixed;
   top: 0px;
   left: 0px;
@@ -59,47 +57,88 @@ const Poster = styled.img`
 
 const Div = styled.div`
   background-color: #ffffff;
-  width: 1100px;
+  width: 76%;
   height: 500px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   z-index: 2;
+  overflow: hidden;
+  transition: 0.3s;
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
+  }
+
+  @media (min-width: 600px) and (max-width: 768px) {
+    width: 80%;
+  }
 `
 
 const Img = styled.img`
   width: 350px;
+  min-width: 300px;
   height: 500px;
+  margin-right: 20px;
   object-fit: fill;
+  transition: 0.3s;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+
+  @media (min-width: 600px) and (max-width: 768px) {
+    display: none;
+  }
 `
 const DetailDiv = styled.div`
-  width: 710px;
-  margin: 20px 20px;
+  width: 65%;
+  margin: 20px 0;
+  transition: 0.3s;
+
+  @media screen and (max-width: 600px) {
+    width: 600px;
+    margin: 30px 30px 60px;
+  }
+
+  @media (min-width: 600px) and (max-width: 768px) {
+    width: 750px;
+    margin: 30px 30px 60px;
+  }
 `
 
 const H1 = styled.h1`
   font-size: 25px;
   margin-bottom: 15px;
+  transition: 0.3s;
 `
 
 const P = styled.p`
+  width: 60%;
   margin-bottom: 30px;
   line-height: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  transition: 0.3s;
 `
 
 const GenreDiv = styled.div`
   margin: 35px 0;
+  transition: 0.3s;
 `
 
 const H3 = styled.h3`
   font-size: 17px;
   margin: 30px 0 15px;
+  transition: 0.3s;
 `
 
 const Ul = styled.ul`
   height: 20px;
   margin-top: 23px;
   padding: 0;
+  transition: 0.3s;
 `
 
 const Li = styled.li`
@@ -110,4 +149,5 @@ const Li = styled.li`
   border-radius: 10px;
   padding: 6px 8px;
   margin-right: 15px;
+  transition: 0.3s;
 `

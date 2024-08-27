@@ -1,24 +1,25 @@
 import './App.css'
 import { MovieCard } from './components/MovieCard'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { movieListDataContext } from './context/movieListDataContext';
 import { NavBar } from './components/NavBar';
+import styled from 'styled-components';
 // const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
   const {movies} = useContext(movieListDataContext)
   // console.log("movies", movies)
+  const [search, setSearch] = useState('')
 
   return (
     <>
-      <NavBar />
-      <MovieCard movies={movies} />
+      <NavBar search={search} setSearch={setSearch} />
+      {!search ? <MovieCard movies={movies} /> : null}
     </>
   )
 }
 
 export default App
-
 
 
 // useEffect(() => {
